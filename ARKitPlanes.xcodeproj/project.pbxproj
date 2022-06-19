@@ -7,15 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		306DFCC2285F688A00C96219 /* BitMaskCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306DFCC1285F688A00C96219 /* BitMaskCategory.swift */; };
 		30D6D0C4285CD7C4003D3696 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6D0C3285CD7C4003D3696 /* AppDelegate.swift */; };
 		30D6D0C6285CD7C4003D3696 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 30D6D0C5285CD7C4003D3696 /* art.scnassets */; };
 		30D6D0C8285CD7C4003D3696 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6D0C7285CD7C4003D3696 /* ViewController.swift */; };
 		30D6D0CB285CD7C4003D3696 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30D6D0C9285CD7C4003D3696 /* Main.storyboard */; };
 		30D6D0CD285CD7C6003D3696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30D6D0CC285CD7C6003D3696 /* Assets.xcassets */; };
 		30D6D0D0285CD7C6003D3696 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30D6D0CE285CD7C6003D3696 /* LaunchScreen.storyboard */; };
+		30D6D0D7285CD7F4003D3696 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6D0D6285CD7F4003D3696 /* Plane.swift */; };
+		30D6D0D9285D2960003D3696 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6D0D8285D2960003D3696 /* Box.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		306DFCC1285F688A00C96219 /* BitMaskCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitMaskCategory.swift; sourceTree = "<group>"; };
 		30D6D0C0285CD7C4003D3696 /* ARKitPlanes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARKitPlanes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30D6D0C3285CD7C4003D3696 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30D6D0C5285CD7C4003D3696 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -23,6 +27,8 @@
 		30D6D0CA285CD7C4003D3696 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		30D6D0CC285CD7C6003D3696 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30D6D0CF285CD7C6003D3696 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		30D6D0D6285CD7F4003D3696 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
+		30D6D0D8285D2960003D3696 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,9 @@
 				30D6D0C3285CD7C4003D3696 /* AppDelegate.swift */,
 				30D6D0C5285CD7C4003D3696 /* art.scnassets */,
 				30D6D0C7285CD7C4003D3696 /* ViewController.swift */,
+				306DFCC1285F688A00C96219 /* BitMaskCategory.swift */,
+				30D6D0D6285CD7F4003D3696 /* Plane.swift */,
+				30D6D0D8285D2960003D3696 /* Box.swift */,
 				30D6D0C9285CD7C4003D3696 /* Main.storyboard */,
 				30D6D0CC285CD7C6003D3696 /* Assets.xcassets */,
 				30D6D0CE285CD7C6003D3696 /* LaunchScreen.storyboard */,
@@ -138,6 +147,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				30D6D0C8285CD7C4003D3696 /* ViewController.swift in Sources */,
+				30D6D0D9285D2960003D3696 /* Box.swift in Sources */,
+				306DFCC2285F688A00C96219 /* BitMaskCategory.swift in Sources */,
+				30D6D0D7285CD7F4003D3696 /* Plane.swift in Sources */,
 				30D6D0C4285CD7C4003D3696 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

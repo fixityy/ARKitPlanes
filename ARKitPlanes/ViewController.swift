@@ -9,9 +9,10 @@ import UIKit
 import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+class ViewController: UIViewController {
 
     @IBOutlet var sceneView: ARSCNView!
+    var planes = [Plane]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,12 +22,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
+        sceneView.autoenablesDefaultLighting = true
+        sceneView.debugOptions = [.showFeaturePoints]
         
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        let scene = SCNScene()
         
         // Set the scene to the view
         sceneView.scene = scene
+        
+        //обязательно присваиваем делегат после присвоения новой сцены, а не до этого!
+        sceneView.scene.physicsWorld.contactDelegate = self
+        
+        setupGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,6 +42,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = [.horizontal, .vertical]
 
         // Run the view's session
         sceneView.session.run(configuration)
@@ -45,30 +54,81 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Pause the view's session
         sceneView.session.pause()
     }
+    
+    func setupGesture() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(placeBox))
+        sceneView.addGestureRecognizer(tapGestureRecognizer)
+        tapGestureRecognizer.numberOfTapsRequired = 2
+    }
+    
+    @objc func placeBox(tapGesture: UITapGestureRecognizer) {
+        let sceneView = tapGesture.view as! ARSCNView
+        let location = tapGesture.location(in: sceneView)
+        
+        //deprecated hitTest
+//        let hitTestResult = sceneView.hitTest(location, types: .existingPlaneUsingExtent)
+//        guard let hitResult = hitTestResult.first else { return }
+//        createBox(hitResult: hitResult)
+        
+        let raycastQuery = sceneView.raycastQuery(from: location, allowing: .estimatedPlane, alignment: .horizontal)
+        guard let result = sceneView.session.raycast(raycastQuery!).first else { return }
+        createBox(hitResult: result)
+    }
+    
+    //deprecated hitTest
+//    func createBox(hitResult: ARHitTestResult) {
+//        let position = SCNVector3(hitResult.worldTransform.columns.3.x,
+//                                  hitResult.worldTransform.columns.3.y + 0.05,
+//                                  hitResult.worldTransform.columns.3.z)
+//
+//        let box = Box(atPosition: position)
+//        sceneView.scene.rootNode.addChildNode(box)
+//    }
+    
+    func createBox(hitResult: ARRaycastResult) {
+        let position = SCNVector3(hitResult.worldTransform.columns.3.x,
+                                  hitResult.worldTransform.columns.3.y + 0.5,
+                                  hitResult.worldTransform.columns.3.z)
+        
+        let box = Box(atPosition: position)
+        sceneView.scene.rootNode.addChildNode(box)
+    }
 
-    // MARK: - ARSCNViewDelegate
-    
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
-    }
-*/
-    
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
+}
+
+//MARK: ARSCNViewDelegate
+extension ViewController: ARSCNViewDelegate {
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        guard anchor is ARPlaneAnchor else { return }
         
+        let plane = Plane(anchor: anchor as! ARPlaneAnchor)
+        
+        planes.append(plane)
+        node.addChildNode(plane)
     }
     
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        let plane = planes.filter { plane in
+            return plane.anchor.identifier == anchor.identifier
+        }.first
         
+        guard plane != nil else { return }
+        
+        plane?.update(anchor: anchor as! ARPlaneAnchor)
     }
-    
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
+}
+
+//MARK: SCNPhysicsContactDelegate
+extension ViewController: SCNPhysicsContactDelegate {
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        let nodeA = contact.nodeA
+        let nodeB = contact.nodeB
         
+        if nodeA.physicsBody?.contactTestBitMask != nodeB.physicsBody?.contactTestBitMask {
+            nodeA.geometry?.materials.first?.diffuse.contents = UIColor.systemRed
+            nodeB.geometry?.materials.first?.diffuse.contents = UIColor.systemIndigo
+        } else {
+            nodeB.geometry?.materials.first?.diffuse.contents = UIColor.systemYellow
+        }
     }
 }
