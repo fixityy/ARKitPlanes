@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		306DFCC2285F688A00C96219 /* BitMaskCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306DFCC1285F688A00C96219 /* BitMaskCategory.swift */; };
+		306DFCC42860B6DF00C96219 /* VirtualObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306DFCC32860B6DE00C96219 /* VirtualObject.swift */; };
 		30D6D0C4285CD7C4003D3696 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6D0C3285CD7C4003D3696 /* AppDelegate.swift */; };
 		30D6D0C6285CD7C4003D3696 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 30D6D0C5285CD7C4003D3696 /* art.scnassets */; };
 		30D6D0C8285CD7C4003D3696 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6D0C7285CD7C4003D3696 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		306DFCC1285F688A00C96219 /* BitMaskCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitMaskCategory.swift; sourceTree = "<group>"; };
+		306DFCC32860B6DE00C96219 /* VirtualObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualObject.swift; sourceTree = "<group>"; };
 		30D6D0C0285CD7C4003D3696 /* ARKitPlanes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARKitPlanes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30D6D0C3285CD7C4003D3696 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30D6D0C5285CD7C4003D3696 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				30D6D0C7285CD7C4003D3696 /* ViewController.swift */,
 				306DFCC1285F688A00C96219 /* BitMaskCategory.swift */,
 				30D6D0D6285CD7F4003D3696 /* Plane.swift */,
+				306DFCC32860B6DE00C96219 /* VirtualObject.swift */,
 				30D6D0D8285D2960003D3696 /* Box.swift */,
 				30D6D0C9285CD7C4003D3696 /* Main.storyboard */,
 				30D6D0CC285CD7C6003D3696 /* Assets.xcassets */,
@@ -148,6 +151,7 @@
 			files = (
 				30D6D0C8285CD7C4003D3696 /* ViewController.swift in Sources */,
 				30D6D0D9285D2960003D3696 /* Box.swift in Sources */,
+				306DFCC42860B6DF00C96219 /* VirtualObject.swift in Sources */,
 				306DFCC2285F688A00C96219 /* BitMaskCategory.swift in Sources */,
 				30D6D0D7285CD7F4003D3696 /* Plane.swift in Sources */,
 				30D6D0C4285CD7C4003D3696 /* AppDelegate.swift in Sources */,

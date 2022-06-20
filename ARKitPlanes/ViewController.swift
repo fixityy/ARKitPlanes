@@ -54,11 +54,21 @@ class ViewController: UIViewController {
         // Pause the view's session
         sceneView.session.pause()
     }
-    
+}
+
+//MARK: Gestures and objects 
+extension ViewController {
     func setupGesture() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(placeBox))
         sceneView.addGestureRecognizer(tapGestureRecognizer)
-        tapGestureRecognizer.numberOfTapsRequired = 2
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        
+        let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(placeVirtualObject))
+        sceneView.addGestureRecognizer(doubleTapGestureRecognizer)
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        
+        //одинарное нажатия сработает только в случае отсутствия двойного нажатия.
+        tapGestureRecognizer.require(toFail: doubleTapGestureRecognizer)
     }
     
     @objc func placeBox(tapGesture: UITapGestureRecognizer) {
@@ -92,6 +102,27 @@ class ViewController: UIViewController {
         
         let box = Box(atPosition: position)
         sceneView.scene.rootNode.addChildNode(box)
+    }
+
+    
+    @objc func placeVirtualObject(tapGesture: UITapGestureRecognizer) {
+        let sceneView = tapGesture.view as! ARSCNView
+        let location = tapGesture.location(in: sceneView)
+        
+        let raycastQuery = sceneView.raycastQuery(from: location, allowing: .estimatedPlane, alignment: .horizontal)
+        guard let result = sceneView.session.raycast(raycastQuery!).first else { return }
+        createVirtualObject(hitResult: result)
+    }
+    
+    func createVirtualObject(hitResult: ARRaycastResult) {
+        let position = SCNVector3(hitResult.worldTransform.columns.3.x,
+                                  hitResult.worldTransform.columns.3.y + 0.05,
+                                  hitResult.worldTransform.columns.3.z)
+        
+        let virtualObject = VirtualObject.availableObjects[1]
+        virtualObject.position = position
+        virtualObject.load()
+        sceneView.scene.rootNode.addChildNode(virtualObject)
     }
 
 }
