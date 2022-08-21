@@ -74,27 +74,12 @@ extension ViewController {
     @objc func placeBox(tapGesture: UITapGestureRecognizer) {
         let sceneView = tapGesture.view as! ARSCNView
         let location = tapGesture.location(in: sceneView)
-        
-        //deprecated hitTest
-//        let hitTestResult = sceneView.hitTest(location, types: .existingPlaneUsingExtent)
-//        guard let hitResult = hitTestResult.first else { return }
-//        createBox(hitResult: hitResult)
-        
+                
         let raycastQuery = sceneView.raycastQuery(from: location, allowing: .estimatedPlane, alignment: .horizontal)
         guard let result = sceneView.session.raycast(raycastQuery!).first else { return }
         createBox(hitResult: result)
     }
-    
-    //deprecated hitTest
-//    func createBox(hitResult: ARHitTestResult) {
-//        let position = SCNVector3(hitResult.worldTransform.columns.3.x,
-//                                  hitResult.worldTransform.columns.3.y + 0.05,
-//                                  hitResult.worldTransform.columns.3.z)
-//
-//        let box = Box(atPosition: position)
-//        sceneView.scene.rootNode.addChildNode(box)
-//    }
-    
+        
     func createBox(hitResult: ARRaycastResult) {
         let position = SCNVector3(hitResult.worldTransform.columns.3.x,
                                   hitResult.worldTransform.columns.3.y + 0.5,
